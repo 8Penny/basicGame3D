@@ -5,6 +5,8 @@ using UnityEngine;
 
 namespace Behaviours.Base {
     public abstract class Shooting : MonoBehaviour {
+        [SerializeField] protected Transform _transform;
+        [SerializeField] private BulletData _bulletData;
         private InstantiatingSystem _instantiatingSystem;
 
         [Inject]
@@ -12,8 +14,11 @@ namespace Behaviours.Base {
             _instantiatingSystem = instantiatingSystem;
         }
 
-        protected void Shoot(Vector3 position, Vector3 direction, BulletData data) {
-            _instantiatingSystem.InstantiateBullet(position, direction, data);
+        protected void Shoot(Vector3 direction) {
+            _instantiatingSystem.InstantiateBullet(direction, _transform.position, _bulletData);
+        }
+
+        protected virtual void Awake() {
         }
     }
 }

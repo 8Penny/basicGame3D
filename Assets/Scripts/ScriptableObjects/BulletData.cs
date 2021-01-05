@@ -5,5 +5,6 @@ namespace ScriptableObjects {
     public class BulletData : ScriptableObject {
         public float speed;
         public float lifetime;
+        public bool fromPlayer;
     }
 }
