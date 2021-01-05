@@ -27,7 +27,7 @@
                     "id": "3750b31f-35a8-47dd-a5aa-a0cb26db7f3f",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "Press(behavior=2)"
                 },
                 {
                     "name": "Back",
@@ -35,7 +35,7 @@
                     "id": "5d89e616-4cc9-4dfc-b9f7-eb9ea44a501a",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "Press(behavior=2)"
                 },
                 {
                     "name": "Left",
@@ -43,7 +43,7 @@
                     "id": "799adff4-1e84-4958-bdbe-25cb44061f86",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "Press(behavior=2)"
                 },
                 {
                     "name": "Right",
@@ -51,7 +51,7 @@
                     "id": "69ab8ce0-5d9c-4cc5-8086-7d649c1ead2a",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "Press(behavior=2)"
                 },
                 {
                     "name": "CameraMoved",
