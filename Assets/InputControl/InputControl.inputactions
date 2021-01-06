@@ -176,7 +176,7 @@
                 {
                     "name": "",
                     "id": "9bf105ad-ff33-4943-9b38-0b7ccff2008f",
-                    "path": "<Mouse>/position/x",
+                    "path": "<Mouse>/delta/x",
                     "interactions": "",
                     "processors": "",
                     "groups": "BasicControlScheme",
