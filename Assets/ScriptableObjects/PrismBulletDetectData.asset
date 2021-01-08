@@ -10,6 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cf7f600ae3704327a8e721775c34413c, type: 3}
-  m_Name: CubePlayerDetectData
+  m_Name: PrismBulletDetectData
   m_EditorClassIdentifier: 
-  radius: 20
+  radius: 0.66

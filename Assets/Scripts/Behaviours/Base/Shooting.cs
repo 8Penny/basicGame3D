@@ -6,7 +6,8 @@ using UnityEngine;
 namespace Behaviours.Base {
     public abstract class Shooting : MonoBehaviour {
         [SerializeField] protected Transform _transform;
-        [SerializeField] private BulletData _bulletData;
+        [SerializeField] protected BulletData _bulletData;
+        
         private InstantiatingSystem _instantiatingSystem;
 
         [Inject]
@@ -14,11 +15,16 @@ namespace Behaviours.Base {
             _instantiatingSystem = instantiatingSystem;
         }
 
-        protected void Shoot(Vector3 direction) {
-            _instantiatingSystem.InstantiateBullet(direction, _transform.position, _bulletData);
+        protected virtual void Awake() {
+            _bulletData = Instantiate(_bulletData);
         }
 
-        protected virtual void Awake() {
+        protected void Shoot(Vector3 direction) {
+            var currentBData = Instantiate(_bulletData);
+            currentBData.direction = direction;
+            currentBData.startPosition = _transform.position;
+            _instantiatingSystem.InstantiateBullet(currentBData);
         }
+
     }
 }

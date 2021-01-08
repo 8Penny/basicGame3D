@@ -11,7 +11,7 @@ namespace Behaviours.Base {
             _movementSpeed = speed;
         }
         public void SetDirection(Vector3 dir) {
-            _direction = dir;
+            _direction = dir.normalized;
         }
         protected virtual void Update() {
             _transform.position += _direction * (Time.deltaTime * _movementSpeed);

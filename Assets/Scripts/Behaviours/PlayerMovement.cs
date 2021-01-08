@@ -46,8 +46,7 @@ namespace Behaviours {
             if (_isMovingLeft) {
                 direction -= _transform.right;
             }
-
-            direction = direction.normalized;
+            
             SetDirection(direction);
 
             base.Update();

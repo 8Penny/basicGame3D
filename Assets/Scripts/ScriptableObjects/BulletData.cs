@@ -6,5 +6,11 @@ namespace ScriptableObjects {
         public float speed;
         public float lifetime;
         public bool fromPlayer;
+
+        [HideInInspector]
+        public Vector3 direction;
+
+        [HideInInspector]
+        public Vector3 startPosition;
     }
 }

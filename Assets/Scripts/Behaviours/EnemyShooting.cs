@@ -5,12 +5,14 @@ using Detectors;
 using GlobalSystems;
 using ScriptableObjects;
 using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
+
 
 namespace Behaviours {
     public class EnemyShooting : Shooting {
         [SerializeField] private EnemyShootingData _enemyShootingData;
-        [SerializeField] private PlayerDetector _playerDetector;
+        [SerializeField] private ObjectDetector _objectDetector;
 
         private bool _isPlayerVisible;
         private float _timeToNextShot;
@@ -23,10 +25,12 @@ namespace Behaviours {
         }
 
         protected override void Awake() {
-            _playerDetector.crossedByObject += DetectPlayer;
+            base.Awake();
+            _objectDetector.crossedByObject += DetectPlayer;
+            _timeToNextShot += Random.Range(0.5f, 3.0f);
         }
 
-        private void DetectPlayer(bool isVisible) {
+        private void DetectPlayer(bool isVisible, Collider collider) {
             _isPlayerVisible = isVisible;
         }
 

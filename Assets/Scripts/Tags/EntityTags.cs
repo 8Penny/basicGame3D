@@ -2,8 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class EntityTags {
-    public static string Player = "Player";
-    public static string Enemy = "Enemy";
-    public static string Bullet = "Bullet";
+namespace Tags {
+    public static class EntityTags {
+        public static string ToString(EntityTag tag) {
+            switch (tag) {
+               case EntityTag.Player:
+                   return "Player";
+               case EntityTag.Enemy:
+                   return "Enemy";
+               case EntityTag.Bullet:
+                   return "Bullet";
+               default:
+                   return null;
+            }
+        }
+    }
+    public enum EntityTag { 
+        Player,
+        Enemy,
+        Bullet
+    }
 }

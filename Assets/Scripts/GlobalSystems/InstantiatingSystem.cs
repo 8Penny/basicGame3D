@@ -1,7 +1,6 @@
-using System;
 using System.Collections.Generic;
-using BehaviourInject;
 using Behaviours;
+using Components;
 using ScriptableObjects;
 using UnityEngine;
 
@@ -21,7 +20,7 @@ namespace GlobalSystems {
         private const float StartBulletYPosition = 0.4f;
 
         private Player _player;
-        
+
         public void AddPlayer(Player p) {
             _player = p;
         }
@@ -34,36 +33,42 @@ namespace GlobalSystems {
         private void InstantiatePlayer() {
             var playerGO = InstantiateGO(_playerPrefab, _playerSpawnPoint.localPosition);
             _player.SetTransform(playerGO.transform);
+            AddHealthCmp(playerGO, _player.health);
         }
 
         private void InstantiateEnemies() {
-            InstantiateFromList(_cubePrefab, _cubeSpawnPoints);
-            InstantiateFromList(_prismPrefab, _prismSpawnPoints);
+            InstantiateEnemiesFromList(_cubePrefab, _cubeSpawnPoints);
+            InstantiateEnemiesFromList(_prismPrefab, _prismSpawnPoints);
         }
 
-        private void InstantiateFromList(GameObject prefab, List<Transform> spawnPoints) {
+        private void InstantiateEnemiesFromList(GameObject prefab, List<Transform> spawnPoints) {
             for (var i = 0; i < spawnPoints.Count; i++) {
-                InstantiateGO(prefab, spawnPoints[i].localPosition);
+                var go = InstantiateGO(prefab, spawnPoints[i].localPosition);
+                var health = new Health(1);
+                AddHealthCmp(go, health);
+                
             }
         }
 
-        public void InstantiateBullet(Vector3 direction, Vector3 position, BulletData bulletData) {
-            position = new Vector3(position.x, StartBulletYPosition, position.z);
+        public void InstantiateBullet(BulletData bulletData) {
+            var position = new Vector3(bulletData.startPosition.x, StartBulletYPosition, bulletData.startPosition.z);
             var bulletGO = InstantiateGO(_bulletPrefab, position);
 
-            var bMovement = bulletGO.GetComponent<BulletMovement>();
-            bMovement.SetDirection(direction);
-            bMovement.SetSpeed(bulletData.speed);
+            var bulletView = bulletGO.GetComponent<BulletView>();
+            var bulletPresenter = new BulletPresenter(bulletData);
 
-            bulletGO.GetComponent<SelfDestruction>().SetTimer(bulletData.lifetime);
-
-            // PLAYERBULLET TAG
+            bulletView.SetPresenter(bulletPresenter);
         }
 
         private GameObject InstantiateGO(GameObject prefab, Vector3 position) {
             var instance = Instantiate(prefab, _parentTransform);
             instance.transform.localPosition = position;
             return instance;
+        }
+
+        private void AddHealthCmp(GameObject go, Health health) {
+            var damageCmp = go.GetComponent<Damage>();
+            damageCmp.SetHealth(health);
         }
     }
 }

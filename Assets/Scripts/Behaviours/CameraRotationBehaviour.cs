@@ -17,8 +17,7 @@ namespace Behaviours {
             var xPosition = value.Get<float>();
             _rotationParameter = xPosition;
         }
-
-
+        
         private void Update() {
             var mouseX = _rotationParameter * MouseSensitivity * Time.deltaTime;
             var yRotation = Mathf.Clamp(mouseX, -90f, 90f);

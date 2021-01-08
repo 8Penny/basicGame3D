@@ -106,6 +106,7 @@ GameObject:
   - component: {fileID: 535182016449303219}
   - component: {fileID: 8064543443165817895}
   - component: {fileID: 5651272871937165116}
+  - component: {fileID: 8473496574470688258}
   m_Layer: 0
   m_Name: PrismEnemy
   m_TagString: Enemy
@@ -126,6 +127,7 @@ Transform:
   m_Children:
   - {fileID: 535182014976534129}
   - {fileID: 1622225043118050320}
+  - {fileID: 839284969763298256}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -158,7 +160,21 @@ MonoBehaviour:
   _transform: {fileID: 535182016449303219}
   _bulletData: {fileID: 11400000, guid: 23f2d62c338ab334f8d148e757c505a7, type: 2}
   _enemyShootingData: {fileID: 11400000, guid: 83f4cb983dc01854a94ee28ea5535028, type: 2}
-  _playerDetector: {fileID: 7596915803064720551}
+  _objectDetector: {fileID: 7596915803064720551}
+--- !u!114 &8473496574470688258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 535182016449303218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f63471efd33442087378a741610ba15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bulletDetector: {fileID: 8240458417285326469}
+  _isPlayer: 0
 --- !u!1 &887534054193393895
 GameObject:
   m_ObjectHideFlags: 0
@@ -168,7 +184,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1622225043118050320}
-  - component: {fileID: 2206513214749266519}
+  - component: {fileID: 2718113179320775301}
   - component: {fileID: 7596915803064720551}
   m_Layer: 0
   m_Name: PlayerDetector
@@ -191,8 +207,8 @@ Transform:
   m_Father: {fileID: 535182016449303219}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &2206513214749266519
-SphereCollider:
+--- !u!136 &2718113179320775301
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -201,8 +217,9 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 5
+  m_Height: 1
+  m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &7596915803064720551
 MonoBehaviour:
@@ -217,4 +234,66 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _detectData: {fileID: 11400000, guid: 0775396f5daae32469b36274b9878f6d, type: 2}
-  _collider: {fileID: 2206513214749266519}
+  _collider: {fileID: 2718113179320775301}
+  _tag: 0
+--- !u!1 &3755100075320631634
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 839284969763298256}
+  - component: {fileID: 7638878467273121437}
+  - component: {fileID: 8240458417285326469}
+  m_Layer: 0
+  m_Name: BulletDetector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &839284969763298256
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3755100075320631634}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 535182016449303219}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &7638878467273121437
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3755100075320631634}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.66
+  m_Height: 5.81
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8240458417285326469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3755100075320631634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 111bb6e5a1bbf684790c823b50eacf0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _detectData: {fileID: 11400000, guid: 67952fd5134413548b2a08c384e3d500, type: 2}
+  _collider: {fileID: 7638878467273121437}
+  _tag: 2
