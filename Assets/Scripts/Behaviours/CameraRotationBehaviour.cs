@@ -6,7 +6,7 @@ namespace Behaviours {
         [SerializeField] Transform _playerTransform;
         private float _rotationParameter;
         private float _halfScreenWidth;
-        private const float MouseSensitivity = 5;
+        private const float MouseSensitivity = 10;
 
 
         private void Start() {

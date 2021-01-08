@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Behaviours.Base {
     public abstract class Movement : MonoBehaviour {

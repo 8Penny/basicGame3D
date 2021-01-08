@@ -13,6 +13,7 @@ namespace Tags {
                case EntityTag.Bullet:
                    return "Bullet";
                default:
+                   Debug.LogError($"No string representation of {tag}");
                    return null;
             }
         }

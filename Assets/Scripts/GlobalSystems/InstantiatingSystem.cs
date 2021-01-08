@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using BehaviourInject;
 using Behaviours;
 using Components;
 using ScriptableObjects;
@@ -6,10 +8,11 @@ using UnityEngine;
 
 namespace GlobalSystems {
     public class InstantiatingSystem : MonoBehaviour {
-        [SerializeField] private GameObject _playerPrefab;
         [SerializeField] private GameObject _cubePrefab;
         [SerializeField] private GameObject _prismPrefab;
         [SerializeField] private GameObject _bulletPrefab;
+
+        [SerializeField] private GameObject _playerGO;
 
         [SerializeField] private Transform _parentTransform;
 
@@ -20,20 +23,28 @@ namespace GlobalSystems {
         private const float StartBulletYPosition = 0.4f;
 
         private Player _player;
-
-        public void AddPlayer(Player p) {
-            _player = p;
+        private RestartSystem _restartSystem;
+        
+        public void Init(Player player, RestartSystem restartSystem) {
+            _player = player;
+            _restartSystem = restartSystem;
         }
 
         private void Awake() {
+            InstantiateLocationActors();
+            _restartSystem.OnRestart += InstantiateLocationActors;
+        }
+
+        private void InstantiateLocationActors() {
             InstantiatePlayer();
             InstantiateEnemies();
         }
 
         private void InstantiatePlayer() {
-            var playerGO = InstantiateGO(_playerPrefab, _playerSpawnPoint.localPosition);
-            _player.SetTransform(playerGO.transform);
-            AddHealthCmp(playerGO, _player.health);
+            _playerGO.transform.localPosition = _playerSpawnPoint.localPosition;
+            _player.SetTransform(_playerGO.transform);
+            _player.health.Reset();
+            AddHealthCmp(_playerGO, _player.health);
         }
 
         private void InstantiateEnemies() {
@@ -46,7 +57,6 @@ namespace GlobalSystems {
                 var go = InstantiateGO(prefab, spawnPoints[i].localPosition);
                 var health = new Health(1);
                 AddHealthCmp(go, health);
-                
             }
         }
 
@@ -69,6 +79,10 @@ namespace GlobalSystems {
         private void AddHealthCmp(GameObject go, Health health) {
             var damageCmp = go.GetComponent<Damage>();
             damageCmp.SetHealth(health);
+        }
+
+        private void OnDestroy() {
+            _restartSystem.OnRestart -= InstantiateLocationActors;
         }
     }
 }

@@ -7,14 +7,25 @@ namespace Components {
         private float _maxValue;
 
         public float value => _value;
+        public float maxValue => _maxValue;
+        public event Action OnChanged;
 
         public Health(float maxValue) {
             _maxValue = maxValue;
             _value = _maxValue;
         }
 
+        public void Reset() {
+            SetHealth(_maxValue);
+        }
+
         public void SetHealth(float val) {
+            var oldValue = _value;
             _value = Mathf.Clamp(val, 0, _maxValue);
+
+            if (Math.Abs(oldValue - _value) > 0.001f) {
+                OnChanged?.Invoke();
+            }
         }
 
         public void SetMaxHealth(float val) {

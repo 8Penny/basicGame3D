@@ -3,17 +3,19 @@ using UnityEngine;
 
 namespace GlobalSystems {
     public class ContextInitiator : MonoBehaviour {
-        [SerializeField] private UpdateSystem _updateSystem;
-        [SerializeField] private InstantiatingSystem _instantiatingSystem;
+        [SerializeField]
+        private InstantiatingSystem _instantiatingSystem;
+        [SerializeField]
+        private RestartSystem _restartSystem;
 
         private Context _context;
 
         private void Awake() {
             var player = new Player();
-            _instantiatingSystem.AddPlayer(player);
+            _instantiatingSystem.Init(player, _restartSystem);
             _context = Context.Create()
-                .RegisterDependency(_updateSystem)
                 .RegisterDependency(_instantiatingSystem)
+                .RegisterDependency(_restartSystem)
                 .RegisterDependency(player);
         }
         

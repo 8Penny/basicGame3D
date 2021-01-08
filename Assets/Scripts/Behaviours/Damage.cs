@@ -1,6 +1,9 @@
 using Components;
 using Detectors;
-using Tags;
+using System;
+using System.Runtime.InteropServices;
+using BehaviourInject;
+using GlobalSystems;
 using UnityEngine;
 
 namespace Behaviours {
@@ -8,7 +11,15 @@ namespace Behaviours {
         [SerializeField] private ObjectDetector _bulletDetector;
         [SerializeField] private bool _isPlayer;
 
+        private RestartSystem _restartSystem;
         private Health _health;
+
+        public event Action<bool> OnDeath;
+
+        [Inject]
+        public void Init(RestartSystem r) {
+            _restartSystem = r;
+        }
 
         public void SetHealth(Health h) {
             _health = h;
@@ -16,6 +27,7 @@ namespace Behaviours {
 
         private void Awake() {
             _bulletDetector.crossedByObject += OnBulletDetected;
+            OnDeath += _restartSystem.OnActorDeath;
         }
 
         private void OnBulletDetected(bool isEntering, Collider bullet) {
@@ -26,9 +38,19 @@ namespace Behaviours {
                 Destroy(bullet.gameObject);
             }
 
-            if (!_isPlayer && _health.value == 0) {
+            if (_health.value != 0) {
+                return;
+            }
+            
+            OnDeath?.Invoke(_isPlayer);
+            
+            if (!_isPlayer) {
                 Destroy(gameObject);
             }
+        }
+
+        private void OnDestroy() {
+            OnDeath -= _restartSystem.OnActorDeath;
         }
     }
 }
