@@ -10,7 +10,7 @@ namespace GlobalSystems {
         public Health health => _health;
 
         public Player() {
-            _health = new Health(3);
+            _health = new Health(100);
         }
         public void SetTransform(Transform t) {
             _transform = t;

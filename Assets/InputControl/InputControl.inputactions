@@ -87,6 +87,17 @@
                 },
                 {
                     "name": "",
+                    "id": "da659756-4d92-4f9e-babd-0adecfbfe47e",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "BasicControlScheme",
+                    "action": "Fire",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "b0b302ec-0a90-4a38-b5d4-3087a5b6f359",
                     "path": "<Keyboard>/w",
                     "interactions": "",
